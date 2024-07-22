@@ -2,6 +2,8 @@ package com.emp.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,6 +31,8 @@ public class Employee {
 	private String email;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
+	@JsonManagedReference		
 	private List<Address> addresses;
 
 }
+//@JsonManagedReference : To avoid the infinite recursion you are seeing in the JSON response. we can use postman to see.

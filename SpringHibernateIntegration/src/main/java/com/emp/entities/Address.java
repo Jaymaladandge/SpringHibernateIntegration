@@ -1,5 +1,7 @@
 package com.emp.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,6 +31,9 @@ public class Address {
 
 	@ManyToOne
 	@JoinColumn(name = "emp_id")
+	@JsonBackReference
 	private Employee employee;
 
 }
+
+//@JsonBackReference : To avoid the infinite recursion you are seeing in the JSON response. we can use postman to see.

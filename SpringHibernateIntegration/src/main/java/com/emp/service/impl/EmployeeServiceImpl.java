@@ -47,6 +47,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		savedEmp.setEmail(employee.getEmail());
 		savedEmp.setName(employee.getName());
+		
+		List<Address> addresses = savedEmp.getAddresses();
+		for(Address address : addresses) {
+			address.setEmployee(employee);
+			
+		}
+		
+		savedEmp.setAddresses(addresses);
 
 		return repository.save(savedEmp);
 	}
