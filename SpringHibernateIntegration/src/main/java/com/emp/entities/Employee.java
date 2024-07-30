@@ -30,8 +30,8 @@ public class Employee {
 
 	private String email;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
-	@JsonManagedReference		
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", orphanRemoval = true)
+	@JsonManagedReference
 	private List<Address> addresses;
 
 }

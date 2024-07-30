@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.emp.entities.Address;
 import com.emp.entities.Employee;
@@ -38,7 +39,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return null;
 	}
 
-	@Override
+	@Transactional
 	public Employee updateEmployee(int empId, Employee employee) {
 
 		Optional<Employee> optional = repository.findById(empId);
@@ -47,14 +48,20 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		savedEmp.setEmail(employee.getEmail());
 		savedEmp.setName(employee.getName());
-		
-		List<Address> addresses = savedEmp.getAddresses();
-		for(Address address : addresses) {
-			address.setEmployee(employee);
-			
+
+		List<Address> updatedAddresses = employee.getAddresses();
+
+		// Disassociate existing addresses
+		for (Address address : savedEmp.getAddresses()) {
+			address.setEmployee(null);
 		}
 		
-		savedEmp.setAddresses(addresses);
+		// Update the saved employee's address list
+		savedEmp.getAddresses().clear();
+		for (Address address : updatedAddresses) {
+			address.setEmployee(savedEmp);
+			savedEmp.getAddresses().add(address);
+		}
 
 		return repository.save(savedEmp);
 	}
