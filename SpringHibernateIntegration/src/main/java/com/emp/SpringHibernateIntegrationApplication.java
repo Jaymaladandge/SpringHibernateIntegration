@@ -39,3 +39,6 @@ public class SpringHibernateIntegrationApplication {
 	}
 
 }
+/*
+Hibernate is one of the most popular JPA implementations and is often used under the hood by Spring Data JPA.
+*/

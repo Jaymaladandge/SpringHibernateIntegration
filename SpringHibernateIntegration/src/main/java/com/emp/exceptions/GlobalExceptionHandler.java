@@ -10,11 +10,19 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExceptionHandler {
 
 	
-	
-	@ExceptionHandler(ResourceNotFoundException.class)
+	@ExceptionHandler(Exception.class)
 	public ResponseEntity<APIResponse> exceptionHandler(ResourceNotFoundException ex){
 		
 		APIResponse apiResponse = APIResponse.builder().message(ex.getMessage()).status("success").statusCode(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		return ResponseEntity.ok(apiResponse);
+	}
+	
+	
+	
+	@ExceptionHandler(ResourceNotFoundException.class)
+	public ResponseEntity<APIResponse> resourceNotFoundExceptionHandler(ResourceNotFoundException ex){
+		
+		APIResponse apiResponse = APIResponse.builder().message(ex.getMessage()).status("success").statusCode(HttpStatus.NOT_FOUND).build();
 		return ResponseEntity.ok(apiResponse);
 	}
 	

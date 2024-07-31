@@ -2,7 +2,6 @@ package com.emp.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import jakarta.annotation.Generated;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
